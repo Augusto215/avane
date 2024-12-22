@@ -1,0 +1,696 @@
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Escolha seu Pacote</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Questrial&family=Rampart+One&display=swap');
+            *
+            {
+                font-family: 'Mulish' !important;
+            }
+
+            .nav-pills .nav-item.active {
+        background: #4e4b87;
+        color: #fff;
+    }
+
+    .nav-link.active h5
+    {
+        color: #fff !important;
+
+    }
+
+    .nav-link.active
+    {
+        background: #4e4b87 !important;
+        color: #fff !important;
+    }
+
+    .nav-pills .nav-item {
+        background: #e6e7e7;
+        border-radius: 0.25rem;
+        margin: 0 0.25rem;
+        /* padding: 0.6rem; */
+    }
+    
+    .nav-pills
+    {
+        justify-content: center !important;
+    }
+
+    #opcao-compra-unica, #opcao-assinatura {
+        display: flex
+    ;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 72px;
+        padding-left: 4px;
+        background: #e6e7e7;
+        padding-right: 4px;
+        border-radius: 4px;
+    }
+
+            #pote-1, #pote-3, #pote-6 {
+                width: 119px;
+                max-width: 119px;
+                height: 117px;
+                border-radius: 10px;
+                
+            }
+
+            .nav-pills .nav-item.active {
+                background: #4e4b87;
+                opacity:  1 !important;
+                color: #fff !important;
+            }
+
+        #pote-1
+        {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .span-pote
+        {
+            font-size: 12.864px;
+        font-weight: 700;
+        background: #767676;
+        color: #FFF;
+        border-radius: 10px 10px 0px 0px;
+
+        }
+
+        .nav-pills .nav-item {
+            background: #e6e7e7;
+        }
+    .spanPote 
+    {
+        font-size: 12.864px;
+        font-weight: 700;
+        max-width: 7rem;
+        background: #767676;
+        color: #FFF;
+        border-radius: 10px 10px 0px 0px;
+    }
+        .poteH1 {
+        color: #606161;
+        text-align: center;
+        font-size: 38px;
+        font-weight: 700;
+    }
+
+    .pote.active div .poteH1
+    {
+        color:#fff !important;
+    }
+
+    .pote.active .spanPote
+    {
+        color: #fff !important;
+        background-color: #252170 !important;
+    }
+    .pote.active div p
+
+    {
+        color:#fff !important;
+
+    }
+
+    .pote div p
+    {
+        color:#333;
+    }
+
+    .nav-pills .nav-item {
+        opacity: 0.5;
+        transition: opacity 0.4s;
+    }
+
+    .row
+    {
+        --bs-gutter-x: 1.5rem;
+        --bs-gutter-y: 0;
+        display: flex
+    ;
+    justify-content: center;
+    align-items: center;
+        flex-wrap: wrap;
+        margin-top: calc(-1* var(--bs-gutter-y));
+        margin-right: calc(-.5* var(--bs-gutter-x));
+        margin-left: calc(-.5* var(--bs-gutter-x));
+    }
+
+    .economize {
+        font-size: 15.702px;
+        font-weight: 900 !important;
+        margin-bottom: 1rem !important;
+        background-color: rgb(225, 245, 231);
+        color: #3ec18d;
+        font-weight: bold;
+        border-radius: 8.723px;
+        width: 205px;
+        height: 37.511px;
+        padding: 6px;
+    }
+
+    @media(max-width:768px)
+    {
+        .col-4
+        {
+            display: none !important;
+        }
+
+        .col-5
+        {
+            max-width:400px;
+            width: 100%;
+            box-shadow: none !important;
+        }
+
+        .escolha
+        {
+            display: none !important;
+        }
+
+        .opcoes-compra
+        {
+            display: flex !important;
+        }
+    }
+            
+            </style>
+    </head>
+    <body>
+        <div id="productBuyDesktop" class="mt-4 d-flex align-items-center justify-content-center container " style="max-width: 960px;">
+            <div class="productBuy-section1 col-5 shadow bg-white p-0 row" style="border-radius: 20px;">
+                <div class="text-white escolha p-3" style="border-radius: 20px 20px 0 0; background: #4e4b87 !important;">
+                    <h5 class="text-center mb-0 " style="font-size: 22px; font-weight: 900;">Escolha seu pacote</h5>
+                </div>
+                <nav class="opcoes-compra gap-3" style="display: none; justify-content: center;" class="nav nav-pills nav-justified nav-mobile"> <!--mb-4 aqui-->
+                    <div style="width: 50%;">
+                    <a id="opcao-compra-unica"  class="compraUnicaBtn cursor nav-item nav-link active">
+                        <h5 class=" mb-0" style="color: #555; text-align: center; font-size: 15px;font-weight: 900; line-height: 22.8px; opacity: 1;">
+                            COMPRA<br>ÚNICA</h5>
+                    </a>
+                </div>
+
+                    <div style="width:50%; display: flex; flex-direction: column; align-items: center;">
+                    <a id="opcao-assinatura" class="subscribeBtn cursor nav-item nav-link">
+                        <h5 class=" mb-0" style="color: #555; text-align: center; font-size: 15px;font-weight: 900; line-height: 22.8px; opacity: 1;">
+                            ASSINE E<br>ECONOMIZE</h5>
+                    </a>
+                    <a data-bs-toggle="modal" data-bs-target="#mobileModal" id="assModal" style="text-decoration: underline; width: 86%; color: #999;" class="d-none open-modal d-flex justify-content-center mr-5 mb-3"><span style="font-size: 14px; font-weight: 600; color: #999; opacity: 1!important;">O que
+                            é isso?</span></a>
+                        </div>
+                    <div class="modal fade" id="mobileModal" tabindex="-1" aria-labelledby="mobileModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+
+                                <div class="modalContentDiv" style="position: relative;">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="position: absolute; top: 5px; right: 5px;"></button>
+                                    <div class="modalImgDiv d-flex align-items-center">
+                                        <img class="img-fluid" src="/assets/img/presell/product_bb.png?v=1.8.28" alt="Assine e Ganhe Mais">
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="modal-header p-0">
+                                            <div>
+                                                <h5 class="modal-title" id="mobileModalLabel">Assine e economize</h5>
+                                                <hr class="modalHR mt-0">
+                                            </div>
+                                        </div>
+                                        <p class="m-0"><span class="modal-span">Nosso Programa de Assinatura é, na verdade, um benefício.</span></p>
+                                        <p>Esta é a principal escolha de nossos clientes por 4 motivos:</p>
+                                        <br>
+                                        <ul class="modalUL">
+                                            <li>
+                                                <p><span class="modal-span">Economia:</span> 10% de desconto extra para sempre! Aplicado automaticamente em todos pacotes;</p>
+                                            </li>
+                                            <li>
+                                                <p><span class="modal-span">Conveniência:</span> As entregas serão mensais e automáticas;</p>
+                                            </li>
+                                            <li>
+                                                <p><span class="modal-span">Sem compromisso:</span> Pule ou cancele uma de suas entregas quando quiser, sem burocracia;</p>
+                                            </li>
+                                            <li>
+                                                <p><span class="modal-span">Sem custo adicional:</span> Não há valor de adesão ou multa de cancelamento.</p>
+                                            </li>
+                                        </ul>
+                                        <div class="modal-footer">
+                                            <button type="button" class="modalButton" data-bs-dismiss="modal">FECHAR</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </nav>
+                <img id="productImage" src="bb-3.png" alt="Bone Broth" class="img-fluid d-block mx-auto py-4">
+                <div id="details" class="d-flex flex-column align-items-center text-center">
+                    <p class="mb-2" style="font-size: 18px; font-weight: 500; color: #606161;">Você recebe: <span id="quantity" style="color: #EB6D56; font-size: 18px; font-weight: 800;">21 refeições</span></p>
+                    <p class="mb-2" style="font-size: 18px; font-weight: 500; color: #606161;">Cada refeição sai por: <span id="price" style="color: #EB6D56; font-size: 18px; font-weight: 800;">R$ 24,90</span></p>
+                    <p id="saving" class="mb-2  economize" style="font-size: 16px;">Economize R$ 105!</p>
+                </div>
+                <div class="px-4 pb-4">
+                    <nav class="nav nav-pills nav-justified mb-4 gap-2">
+                        <a id="pote-1" style="display:flex;" class=" flex-column cursor pote pote-1 nav-item nav-link p-0" data-bs-toggle="tab" data-bs-target="#pills-1" onclick="updateDetails(1)">
+                            <span id="span-pote-1" class="span-pote-1 active" style="font-size: 12px; background-color: #327fba; border-radius: 0.25rem; visibility: hidden;"></span>
+                            <div class="d-flex flex-column justify-content-end" >
+                                <h1 class="poteH1 font-weight-normal mb-0">1</h1>
+                                <p style="font-size: 18px; font-weight: 500; margin-bottom: 0; line-height: .7;">
+                                    Caixa</p>
+                            </div>
+                        </a>
+                        <a id="pote-3" style="display: flex;" class=" flex-column cursor pote pote-3 nav-item nav-link p-0 active" data-bs-toggle="tab" data-bs-target="#pills-3" onclick="updateDetails(3)">
+                            <span id="span-pote-3" class="spanPote span-pote-3 spanActive" style="font-size: 12.864px; font-weight: 700; background: #767676; color: #FFF; border-radius: 10px 10px 0px 0px;">Mais
+                                vendido</span>
+                            <div class="d-flex flex-column justify-content-end" style="height: 55%;">
+                                <h1 class="poteH1 font-weight-normal mb-0">3</h1>
+                                <p style="font-size: 18px; font-weight: 500; margin-bottom: 0; line-height: .7;">
+                                    Caixas</p>
+                            </div>
+                        </a>
+                        <a id="pote-6" style="display:flex;" class=" flex-column cursor pote pote-6 nav-item nav-link p-0" data-bs-toggle="tab" data-bs-target="#pills-6" onclick="updateDetails(6)">
+                            <span id="span-pote-6" class="spanPote span-pote-6" style="font-size: 12.864px; font-weight: 700; background: #767676; color: #FFF; border-radius: 10px 10px 0px 0px;">Maior
+                                economia</span>
+                            <div class="d-flex flex-column justify-content-end" style="height: 55%;">
+                                <h1 class="poteH1 font-weight-normal mb-0">6</h1>
+                                <p style="font-size: 18px; font-weight: 500; margin-bottom: 0; line-height: .7;">
+                                    Caixas</p>
+                            </div>
+                        </a>
+                    </nav>
+                    <select id="flavorSelect" class="form-select mb-3">
+                        <!-- Frutas Vermelhas -->
+                        <option selected value="https://biosante.com.br/pages/avane-6.php?prod=KITAV67&assina" 
+                                data-link="https://biosante.com.br/pages/avane-6.php?prod=KITAV67&assina" 
+                                data-image-1="https://biosante.com.br/wp-content/uploads/2021/08/kit-1-avane-skin-2022.png?fv-assina" 
+                                data-image-3="https://biosante.com.br/wp-content/uploads/2021/08/kit-3-avane-skin-2022.png?kitav14assina" 
+                                data-image-6="https://media.swipepages.com/2023/7/647e322a3e0a2d00109802bb/6potes-avane-assinatura-04y2u5.webp?kitav67assina" 
+                                data-quantity-1="30 doses" 
+                                data-price-each-1 = "R$ 6,23"
+                                data-price-1="R$ 18,22" 
+                                data-aVista-1="R$ 187,00"
+                                data-saving-1="R$ 10,00 " 
+                                data-link-1 = "https://biosante.com.br/pages/avane-1.php?prod=KITAV20"
+
+                                data-quantity-assinatura-1="30 doses" 
+                                data-price-each-assinatura-1 = "R$ 5,61"
+                                data-price-assinatura-1="R$ 13,22" 
+                                data-aVista-assinatura-1="R$ 167,00"
+                                data-saving-assinatura-1="R$ 20,00 " 
+                                data-link-assinatura-1 = "https://biosante.com.br/pages/avane-1.php?prod=KITAV20&assina"
+
+                                data-quantity-3="90 doses" 
+                                data-price-each-3 = "R$ 5,23"
+                                data-price-3="R$ 45,89" 
+                                data-aVista-3="R$ 471,00"
+                                data-saving-3="R$ 90,00 " 
+                                data-link-3 = "https://biosante.com.br/pages/avane-3.php?prod=KITAV14"
+        
+                                data-quantity-assinatura-3="90 doses" 
+                                data-price-each-assinatura-3 = "R$ 4,71"
+                                data-price-assinatura-3="R$ 43,22" 
+                                data-aVista-assinatura-3="R$ 423,90"
+                                data-saving-assinatura-3="R$ 120,00 " 
+                                data-link-assinatura-3 = "https://biosante.com.br/pages/avane-3.php?prod=KITAV14&assina"
+
+
+
+
+                                data-quantity-6="180 doses" 
+                                data-price-each-6 = "R$ 4,23"
+                                data-price-6="R$ 74,24" 
+                                data-aVista-6="R$ 762,00"
+                                data-saving-6="R$ 300,00 " 
+                                data-link-6 = "https://biosante.com.br/pages/avane-3.php?prod=KITAV14"
+        
+                                data-quantity-assinatura-6="180 doses" 
+                                data-price-each-assinatura-6 = "R$ 3,90"
+                                data-price-assinatura-6="R$ 65,24" 
+                                data-aVista-assinatura-6="R$ 690,00"
+                                data-saving-assinatura-6="R$ 350,00 " 
+                                data-link-assinatura-6 = "https://biosante.com.br/pages/avane-3.php?prod=KITAV14"
+
+
+                                >
+                            Frutas Vermelhas
+                        </option>
+                        <!-- Abacaxi com Limão -->
+                        <option value="https://biosante.com.br/pages/avane-6.php?prod=KITAV67&assina" 
+                                data-link="https://biosante.com.br/pages/avane-6.php?prod=KITAV67&assina" 
+                                data-image-1="https://biosante.com.br/wp-content/uploads/2021/08/kit-1-avane-skin-2022.png?fv-assina" 
+                                data-image-3="https://biosante.com.br/wp-content/uploads/2021/08/kit-3-avane-skin-2022.png?kitav14assina" 
+                                data-image-6="https://media.swipepages.com/2023/7/647e322a3e0a2d00109802bb/6potes-avane-assinatura-04y2u5.webp?kitav67assina" 
+                                data-quantity-1="30 doses" 
+                                data-price-each-1 = "R$ 6,23"
+                                data-price-1="R$ 18,22" 
+                                data-aVista-1="R$ 187,00"
+                                data-saving-1="R$ 10,00 " 
+                                data-link-1 = "https://biosante.com.br/pages/avane-1.php?prod=KITAV20"
+
+                                data-quantity-assinatura-1="30 doses" 
+                                data-price-each-assinatura-1 = "R$ 5,61"
+                                data-price-assinatura-1="R$ 13,22" 
+                                data-aVista-assinatura-1="R$ 167,00"
+                                data-saving-assinatura-1="R$ 20,00 " 
+                                data-link-assinatura-1 = "https://biosante.com.br/pages/avane-1.php?prod=KITAV20&assina"
+
+                                data-quantity-3="90 doses" 
+                                data-price-each-3 = "R$ 5,23"
+                                data-price-3="R$ 45,89" 
+                                data-aVista-3="R$ 471,00"
+                                data-saving-3="R$ 90,00 " 
+                                data-link-3 = "https://biosante.com.br/pages/avane-3.php?prod=KITAV14"
+        
+                                data-quantity-assinatura-3="90 doses" 
+                                data-price-each-assinatura-3 = "R$ 4,71"
+                                data-price-assinatura-3="R$ 43,22" 
+                                data-aVista-assinatura-3="R$ 423,90"
+                                data-saving-assinatura-3="R$ 120,00 " 
+                                data-link-assinatura-3 = "https://biosante.com.br/pages/avane-3.php?prod=KITAV14&assina"
+
+
+
+
+                                data-quantity-6="180 doses" 
+                                data-price-each-6 = "R$ 4,23"
+                                data-price-6="R$ 74,24" 
+                                data-aVista-6="R$ 762,00"
+                                data-saving-6="R$ 300,00 " 
+                                data-link-6 = "https://biosante.com.br/pages/avane-3.php?prod=KITAV14"
+        
+                                data-quantity-assinatura-6="180 doses" 
+                                data-price-each-assinatura-6 = "R$ 3,90"
+                                data-price-assinatura-6="R$ 65,24" 
+                                data-aVista-assinatura-6="R$ 690,00"
+                                data-saving-assinatura-6="R$ 350,00 " 
+                                data-link-assinatura-6 = "https://biosante.com.br/pages/avane-3.php?prod=KITAV14"
+
+
+                                >
+                    Abacaxi com Limão
+                </option>
+
+                <option value="https://biosante.com.br/pages/avane-6.php?prod=KITAV67&assina" 
+                                data-link="https://biosante.com.br/pages/avane-6.php?prod=KITAV67&assina" 
+                                data-image-1="https://biosante.com.br/wp-content/uploads/2021/08/kit-1-avane-skin-2022.png?fv-assina" 
+                                data-image-3="https://biosante.com.br/wp-content/uploads/2021/08/kit-3-avane-skin-2022.png?kitav14assina" 
+                                data-image-6="https://media.swipepages.com/2023/7/647e322a3e0a2d00109802bb/6potes-avane-assinatura-04y2u5.webp?kitav67assina" 
+                                data-quantity-1="30 doses" 
+                                data-price-each-1 = "R$ 6,23"
+                                data-price-1="R$ 18,22" 
+                                data-aVista-1="R$ 187,00"
+                                data-saving-1="R$ 10,00 " 
+                                data-link-1 = "https://biosante.com.br/pages/avane-1.php?prod=KITAV20"
+
+                                data-quantity-assinatura-1="30 doses" 
+                                data-price-each-assinatura-1 = "R$ 5,61"
+                                data-price-assinatura-1="R$ 13,22" 
+                                data-aVista-assinatura-1="R$ 167,00"
+                                data-saving-assinatura-1="R$ 20,00 " 
+                                data-link-assinatura-1 = "https://biosante.com.br/pages/avane-1.php?prod=KITAV20&assina"
+
+                                data-quantity-3="90 doses" 
+                                data-price-each-3 = "R$ 5,23"
+                                data-price-3="R$ 45,89" 
+                                data-aVista-3="R$ 471,00"
+                                data-saving-3="R$ 90,00 " 
+                                data-link-3 = "https://biosante.com.br/pages/avane-3.php?prod=KITAV14"
+        
+                                data-quantity-assinatura-3="90 doses" 
+                                data-price-each-assinatura-3 = "R$ 4,71"
+                                data-price-assinatura-3="R$ 43,22" 
+                                data-aVista-assinatura-3="R$ 423,90"
+                                data-saving-assinatura-3="R$ 120,00 " 
+                                data-link-assinatura-3 = "https://biosante.com.br/pages/avane-3.php?prod=KITAV14&assina"
+
+
+
+
+                                data-quantity-6="180 doses" 
+                                data-price-each-6 = "R$ 4,23"
+                                data-price-6="R$ 74,24" 
+                                data-aVista-6="R$ 762,00"
+                                data-saving-6="R$ 300,00 " 
+                                data-link-6 = "https://biosante.com.br/pages/avane-3.php?prod=KITAV14"
+        
+                                data-quantity-assinatura-6="180 doses" 
+                                data-price-each-assinatura-6 = "R$ 3,90"
+                                data-price-assinatura-6="R$ 65,24" 
+                                data-aVista-assinatura-6="R$ 690,00"
+                                data-saving-assinatura-6="R$ 350,00 " 
+                                data-link-assinatura-6 = "https://biosante.com.br/pages/avane-3.php?prod=KITAV14"
+
+
+                                >
+                    Pêssego com Tangerina
+                </option>
+                <option value="https://biosante.com.br/pages/avane-6.php?prod=KITAV67&assina" 
+                                data-link="https://biosante.com.br/pages/avane-6.php?prod=KITAV67&assina" 
+                                data-image-1="https://biosante.com.br/wp-content/uploads/2021/08/kit-1-avane-skin-2022.png?fv-assina" 
+                                data-image-3="https://biosante.com.br/wp-content/uploads/2021/08/kit-3-avane-skin-2022.png?kitav14assina" 
+                                data-image-6="https://media.swipepages.com/2023/7/647e322a3e0a2d00109802bb/6potes-avane-assinatura-04y2u5.webp?kitav67assina" 
+                                data-quantity-1="30 doses" 
+                                data-price-each-1 = "R$ 6,23"
+                                data-price-1="R$ 18,22" 
+                                data-aVista-1="R$ 187,00"
+                                data-saving-1="R$ 10,00 " 
+                                data-link-1 = "https://biosante.com.br/pages/avane-1.php?prod=KITAV20"
+
+                                data-quantity-assinatura-1="30 doses" 
+                                data-price-each-assinatura-1 = "R$ 5,61"
+                                data-price-assinatura-1="R$ 13,22" 
+                                data-aVista-assinatura-1="R$ 167,00"
+                                data-saving-assinatura-1="R$ 20,00 " 
+                                data-link-assinatura-1 = "https://biosante.com.br/pages/avane-1.php?prod=KITAV20&assina"
+
+                                data-quantity-3="90 doses" 
+                                data-price-each-3 = "R$ 5,23"
+                                data-price-3="R$ 45,89" 
+                                data-aVista-3="R$ 471,00"
+                                data-saving-3="R$ 90,00 " 
+                                data-link-3 = "https://biosante.com.br/pages/avane-3.php?prod=KITAV14"
+        
+                                data-quantity-assinatura-3="90 doses" 
+                                data-price-each-assinatura-3 = "R$ 4,71"
+                                data-price-assinatura-3="R$ 43,22" 
+                                data-aVista-assinatura-3="R$ 423,90"
+                                data-saving-assinatura-3="R$ 120,00 " 
+                                data-link-assinatura-3 = "https://biosante.com.br/pages/avane-3.php?prod=KITAV14&assina"
+
+
+
+
+                                data-quantity-6="180 doses" 
+                                data-price-each-6 = "R$ 4,23"
+                                data-price-6="R$ 74,24" 
+                                data-aVista-6="R$ 762,00"
+                                data-saving-6="R$ 300,00 " 
+                                data-link-6 = "https://biosante.com.br/pages/avane-3.php?prod=KITAV14"
+        
+                                data-quantity-assinatura-6="180 doses" 
+                                data-price-each-assinatura-6 = "R$ 3,90"
+                                data-price-assinatura-6="R$ 65,24" 
+                                data-aVista-assinatura-6="R$ 690,00"
+                                data-saving-assinatura-6="R$ 350,00 " 
+                                data-link-assinatura-6 = "https://biosante.com.br/pages/avane-3.php?prod=KITAV14"
+
+
+                                >
+                    Neutro
+                </option>
+                    </select>
+                    
+                    
+                    
+                    
+
+
+                    <div id="details" class="d-flex flex-column align-items-center text-center mb-3">
+                        <p class="mb-2" style="font-size: 16px; font-weight: bold; color: #606161;">Preço Hoje:</p>
+                        <p style="font-size: 20px; font-weight: 700; color: #EB6D56;">12x <span id="price-parcelado">R$ 84,34</span></p>
+                        <p style="font-size: 16px; font-weight: 400; color: #606161;">ou <span id="price-a-vista">R$ 752,22</span> à vista</p>
+                    </div>
+
+                    <a class="gap-2" id="buyButton" style="display: flex; justify-content: flex-start; width: 100%; height: 75px; padding: 9.063px 54.375px; justify-content: center; align-items: center; border-radius: 4.531px; background: #3ec18d !important; border: none; position: relative; margin-top: 1rem; text-decoration: none; color: #fff !important;" href="#">
+                        <p class="mb-0" style="font-size: 22px; font-weight: 900 !important;">COMPRE AGORA</p>
+                        <img src="double-arrow.svg">
+                    </a>
+                </div>
+            </div>
+            <div class="col-4 productBuy-section2 shadow bg-white p-0" style="border-radius: 0px 20px 20px 0px; position: relative;">
+                <img style="width: 130px; position: absolute; top: -60px; right: -40px;" class="img-fluid" src="badge-mobile (1).png" alt="10%">
+                <div class="text-white p-3" style="border-radius: 0px 20px 0px 0px; background: #4e4b87 !important;">
+                    <h5 class="text-center mb-0" style="font-weight: 900 !important;">Assine e Economize</h5>
+                    <p class="mb-0 text-center">(Opcional)</p>
+                </div>
+                <div class="p-3">
+                    <ul class="list-unstyled">
+                        <li class="mb-3 d-flex align-items-center mb-2"><img src="green-verified.png" alt="" class="me-2"> Ganhe Desconto Máximo</li>
+                        <li class="mb-3 d-flex align-items-center mb-2"><img src="green-verified.png" alt="" class="me-2"> Entrega Mensal Automática</li>
+                        <li class="mb-3 d-flex align-items-center mb-2"><img src="green-verified.png" alt="" class="me-2"> Menor Preço Garantido</li>
+                        <li class="mb-3 d-flex align-items-center"><img src="green-verified.png" alt="" class="me-2"> Cancele a qualquer momento</li>
+                    </ul>
+                    <div class="form-check mt-3 bg-gray d-flex " style="background:#ebe8e0">
+                        <div class="p-3">
+                        <input type="checkbox" class="form-check-input" id="subscribeCheck">
+                        <label class="form-check-label" for="subscribeCheck"><strong><span style="color: #1fab4b !important;">SIM!</span> Quero ser assinante e ganhar desconto!</strong></label>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+    // Configura os detalhes iniciais com base na quantidade padrão (por exemplo, 3)
+    updateDetails(currentQuantity);
+});
+            let currentQuantity = 3;
+            let isSubscribed = false; // Controle do checkbox
+            // Inicializa com 3 como padrão ativo
+            const priceData = {
+            1: { parcelado: "99.90", aVista: "950.00" },
+            3: { parcelado: "84.34", aVista: "752.22" },
+            6: { parcelado: "74.90", aVista: "680.00" }
+            };
+            
+            const linksData = {
+                "1-Sabor Original-compraUnica": "link1", 
+                "1-Sabor Original-assinatura": "link2", 
+                "1-Sabor Frango-compraUnica": "link3", 
+                "1-Sabor Frango-assinatura": "link4", 
+                "1-Sabor Carne-compraUnica": "link5", 
+                "1-Sabor Carne-assinatura": "link6",
+                "3-Sabor Original-compraUnica": "link7", 
+                "3-Sabor Original-assinatura": "link8", 
+                "3-Sabor Frango-compraUnica": "link9", 
+                "3-Sabor Frango-assinatura": "link10", 
+                "3-Sabor Carne-compraUnica": "link11", 
+                "3-Sabor Carne-assinatura": "link12",
+                "6-Sabor Original-compraUnica": "link13", 
+                "6-Sabor Original-assinatura": "link14", 
+                "6-Sabor Frango-compraUnica": "link15", 
+                "6-Sabor Frango-assinatura": "link16", 
+                "6-Sabor Carne-compraUnica": "link17", 
+                "6-Sabor Carne-assinatura": "link18"
+            };
+
+            const flavorSelect = document.getElementById('flavorSelect');
+
+       
+
+
+            document.getElementById('flavorSelect').addEventListener('change', function () {
+                updateDetails(currentQuantity);
+            });
+
+
+            document.getElementById('subscribeCheck').addEventListener('change', function () {
+                if(this.checked)
+            {
+                isSubscribed = true
+            }
+            else
+            {
+                isSubscribed = false
+            }
+                updateDetails(currentQuantity);
+            });
+
+
+            document.querySelector('.subscribeBtn').addEventListener('click', function () {
+                isSubscribed = true 
+                document.querySelector('#opcao-assinatura').classList.add('active');
+                document.querySelector('#opcao-compra-unica').classList.remove('active');
+                
+                updateDetails(currentQuantity);
+            });
+
+            document.querySelector('.compraUnicaBtn').addEventListener('click', function () {
+                isSubscribed = false
+                document.querySelector('#opcao-compra-unica').classList.add('active');
+                document.querySelector('#opcao-assinatura').classList.remove('active');
+                
+                updateDetails(currentQuantity);
+            });
+
+        
+            function updateDetails(quantity) {
+                currentQuantity = quantity;
+                // Atualiza a quantidade atual
+                const flavorSelect = document.getElementById('flavorSelect');
+                const selectedOption = flavorSelect.options[flavorSelect.selectedIndex];
+                 // Iterar sobre os potes e verificar se há preço para cada quantidade
+                
+                console.log(selectedOption)
+                const priceKey = isSubscribed ? `data-price-assinatura-${quantity}` : `data-price-${quantity}`;
+                const vistaKey = isSubscribed ? `data-aVista-assinatura-${quantity}` : `data-aVista-${quantity}`;
+                const quantityKey = isSubscribed ? `data-quantity-assinatura-${quantity}` : `data-quantity-${quantity}`;
+                const priceEachkey = isSubscribed ? `data-price-each-assinatura-${quantity}` : `data-price-each-${quantity}`;
+                const savingKey = isSubscribed ? `data-saving-assinatura-${quantity}` : `data-saving-${quantity}`;
+                const imageKey = isSubscribed ? `data-image-${quantity}` : `data-image-${quantity}`;
+                const linkKey = isSubscribed ? `data-link-${quantity}` : `data-link-assinatura-${quantity}`; 
+                const basePriceParcelado = parseFloat(price [quantity]?.parcelado.replace(",", ".")) || 0;
+                const basePriceAVista = parseFloat(priceData[quantity]?.aVista.replace(",", ".")) || 0;
+
+                console.log("Quantidade: ", quantity);
+                console.log("Preço parcelado base: ", basePriceParcelado);
+                console.log("Preço à vista base: ", basePriceAVista);
+
+                const newPriceParcelado = isSubscribed ? (basePriceParcelado * 0.9).toFixed(2) : basePriceParcelado.toFixed(2);
+                const newPriceAVista = isSubscribed ? (basePriceAVista * 0.9).toFixed(2) : basePriceAVista.toFixed(2);
+
+            
+               
+                const newImage = selectedOption.getAttribute(imageKey);
+                const newQuantity = selectedOption.getAttribute(quantityKey);
+                const newPrice = selectedOption.getAttribute(priceKey);
+                const newAvista = selectedOption.getAttribute(vistaKey)
+                const newSaving = selectedOption.getAttribute(savingKey);
+                const newPriceEach = selectedOption.getAttribute(priceEachkey);
+                const flavor = document.getElementById('flavorSelect').options[document.getElementById('flavorSelect').selectedIndex].text;
+                const purchaseType = isSubscribed ? "assinatura" : "compraUnica";
+                const buyUrl = selectedOption.getAttribute(linkKey);
+                console.log("Link atualizado: ", buyUrl);
+                document.getElementById('buyButton').href = buyUrl;
+                console.log("Preço parcelado atualizado: ", newPriceParcelado);
+                console.log("Preço à vista atualizado: ", newPriceAVista);
+
+                document.getElementById('price-parcelado').innerText = newPrice;
+                document.getElementById('price-a-vista').innerText = newAvista;
+                document.getElementById('productImage').src = newImage;
+                document.getElementById('quantity').innerText = newQuantity;
+                document.getElementById('price').innerText = newPriceEach;
+                document.getElementById('saving').innerText = `Economize ${newSaving}!`;
+
+                 // Atualiza visibilidade das opções de quantidade e verifica única opção
+                 const visiblePots = [];
+    [1, 3, 6].forEach(qty => {
+        const poteElement = document.getElementById(`pote-${qty}`);
+        const priceCheckKey = isSubscribed ? `data-price-assinatura-${qty}` : `data-price-${qty}`;
+        const priceValue = selectedOption.getAttribute(priceCheckKey);
+
+        if (priceValue) {
+            poteElement.style.display = "flex"; // Exibir se há preço
+            visiblePots.push(qty); // Adiciona o valor disponível à lista de visíveis
+        } else {
+            poteElement.style.display = "none"; // Ocultar se não há preço
+        }
+
+    });
+
+    // Define a opção padrão com base nas prioridades
+
+}
+            
+        </script>
+    </body>
+    </html>
