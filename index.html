@@ -301,201 +301,219 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
       <script>
         let currentQuantity = 3;
-        let isSubscribed = false; // Controle do checkbox
-    
-        document.addEventListener("DOMContentLoaded", function () {
-            updateDetails(currentQuantity);
-    
-            // Define mensagem de erro escondida inicialmente
-            const errorMessage = document.createElement('p');
-            errorMessage.id = 'error-message';
-            errorMessage.style.color = 'red';
-            errorMessage.style.display = 'none';
-            errorMessage.style.fontWeight = '600'
-            errorMessage.textContent = '*Escolha uma opção.';
-            document.querySelector('#warning').appendChild(errorMessage);
-    
-            // Seleciona a opção inicial no dropdown
-            const flavorSelect = document.getElementById('flavorSelect');
-            flavorSelect.value = flavors[currentQuantity][0]?.name || ""; // Define a opção "Selecione um sabor"
-        });
-    
-        const priceData = {
-            1: {
-                compraUnica: {
-                    parcelado: "18.22",
-                    aVista: "187.00",
-                    priceEach: "6.23",
-                    saving: "10.00",
-                    quantity: "30 doses"
-                },
-                assinatura: {
-                    parcelado: "16.44",
-                    aVista: "168.30",
-                    priceEach: "5.61",
-                    saving: "26.30",
-                    quantity: "30 doses"
-                }
-            },
-            3: {
-                compraUnica: {
-                    parcelado: "45.89",
-                    aVista: "471.00",
-                    priceEach: "5.23",
-                    saving: "90.00",
-                    quantity: "90 doses"
-                },
-                assinatura: {
-                    parcelado: "43.22",
-                    aVista: "423.90",
-                    priceEach: "4.71",
-                    saving: "120.00",
-                    quantity: "90 doses"
-                }
-            },
-            6: {
-                compraUnica: {
-                    parcelado: "74.24",
-                    aVista: "762.00",
-                    priceEach: "4.23",
-                    saving: "300.00",
-                    quantity: "180 doses"
-                },
-                assinatura: {
-                    parcelado: "65.24",
-                    aVista: "690.00",
-                    priceEach: "3.90",
-                    saving: "350.00",
-                    quantity: "180 doses"
-                }
+let isSubscribed = false;
+
+// Define imagens padrão para cada quantidade
+const defaultImages = {
+    1: "https://biosante.com.br/wp-content/uploads/2021/08/kit-1-avane-skin-2022.png?fv",
+    3: "https://biosante.com.br/wp-content/uploads/2021/08/kit-3-avane-skin-2022.png?kitav12",
+    6: "https://media.swipepages.com/2023/7/647e322a3e0a2d00109802bb/6potes-avane-assinatura-04y2u5.webp?kitav61"
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+    updateDetails(currentQuantity);
+
+    // Define mensagem de erro escondida inicialmente
+    const errorMessage = document.createElement('p');
+    errorMessage.id = 'error-message';
+    errorMessage.style.color = 'red';
+    errorMessage.style.display = 'none';
+    errorMessage.style.fontWeight = '600';
+    errorMessage.textContent = '*Escolha uma opção.';
+    document.querySelector('#warning').appendChild(errorMessage);
+
+    // Configura o comportamento inicial do select
+    const flavorSelect = document.getElementById('flavorSelect');
+    flavorSelect.value = ""; // Define a opção "Selecione um sabor" inicialmente
+});
+
+document.getElementById('flavorSelect').addEventListener('change', function () {
+    const flavorSelect = document.getElementById('flavorSelect');
+    const selectedOption = flavorSelect.options[flavorSelect.selectedIndex];
+    const buyUrl = selectedOption.getAttribute(`data-link-${currentQuantity}`) || "#";
+    const productImage = selectedOption.getAttribute('data-image') || defaultImages[currentQuantity];
+
+    document.getElementById('buyButton').href = buyUrl;
+    document.getElementById('productImage').src = productImage;
+
+    // Esconde a mensagem de erro ao selecionar um sabor válido
+    document.getElementById('error-message').style.display = 'none';
+});
+
+document.getElementById('subscribeCheck').addEventListener('change', function () {
+    isSubscribed = this.checked;
+    updateDetails(currentQuantity);
+});
+
+document.querySelector('.subscribeBtn').addEventListener('click', function () {
+    isSubscribed = true;
+    document.querySelector('#opcao-assinatura').classList.add('active');
+    document.querySelector('#opcao-compra-unica').classList.remove('active');
+    updateDetails(currentQuantity);
+});
+
+document.querySelector('.compraUnicaBtn').addEventListener('click', function () {
+    isSubscribed = false;
+    document.querySelector('#opcao-compra-unica').classList.add('active');
+    document.querySelector('#opcao-assinatura').classList.remove('active');
+    updateDetails(currentQuantity);
+});
+
+document.getElementById('buyButton').addEventListener('click', function (event) {
+    const flavorSelect = document.getElementById('flavorSelect');
+    const selectedOption = flavorSelect.options[flavorSelect.selectedIndex];
+
+    if (!selectedOption || selectedOption.value === "" || selectedOption.value === "Selecione um sabor") {
+        event.preventDefault();
+        const errorMessage = document.getElementById('error-message');
+        errorMessage.style.display = 'block';
+        return;
+    }
+});
+
+function updateDetails(quantity, resetSelector = true) {
+    currentQuantity = quantity;
+
+    const priceType = isSubscribed ? "assinatura" : "compraUnica";
+    const priceDetails = priceData[quantity][priceType];
+
+    document.getElementById('price-parcelado').innerText = `R$ ${priceDetails.parcelado}`;
+    document.getElementById('price-a-vista').innerText = `R$ ${priceDetails.aVista}`;
+    document.getElementById('quantity').innerText = priceDetails.quantity;
+    document.getElementById('price').innerText = `R$ ${priceDetails.priceEach}`;
+    document.getElementById('saving').innerText = `Economize R$ ${priceDetails.saving}!`;
+
+    const flavorSelect = document.getElementById('flavorSelect');
+    const selectedFlavor = flavorSelect.value; // Salva o sabor selecionado atual
+
+    if (resetSelector) {
+        flavorSelect.innerHTML = ''; // Limpa as opções do select
+
+        const availableFlavors = getFlavorsForQuantity(quantity);
+        const defaultOption = document.createElement('option');
+        defaultOption.text = "Selecione um sabor";
+        defaultOption.value = "";
+        flavorSelect.add(defaultOption);
+
+        availableFlavors.forEach(flavor => {
+            const option = document.createElement('option');
+            option.text = flavor.name;
+
+            const link = flavor[priceType]?.link || null;
+            const image = flavor.image || null;
+
+            if (link) {
+                option.setAttribute('data-link', link);
+                option.setAttribute(`data-link-${quantity}`, link);
             }
-        };
-    
-        document.getElementById('flavorSelect').addEventListener('change', function () {
-            const flavorSelect = document.getElementById('flavorSelect');
-            const selectedOption = flavorSelect.options[flavorSelect.selectedIndex];
-            const buyUrl = selectedOption.getAttribute(`data-link-${currentQuantity}`) || "#";
-            const productImage = selectedOption.getAttribute('data-image') || "";
-    
-            document.getElementById('buyButton').href = buyUrl;
-            if (productImage) {
-            document.getElementById('productImage').src = productImage;
-        } else {
-            document.getElementById('productImage').src = defaultImages[currentQuantity];
-        }
-    
-            // Esconde a mensagem de erro ao selecionar um sabor válido
-            document.getElementById('error-message').style.display = 'none';
-        });
-    
-        document.getElementById('subscribeCheck').addEventListener('change', function () {
-            isSubscribed = this.checked;
-            updateDetails(currentQuantity);
-        });
-    
-        document.querySelector('.subscribeBtn').addEventListener('click', function () {
-            isSubscribed = true;
-            document.querySelector('#opcao-assinatura').classList.add('active');
-            document.querySelector('#opcao-compra-unica').classList.remove('active');
-            updateDetails(currentQuantity);
-        });
-    
-        document.querySelector('.compraUnicaBtn').addEventListener('click', function () {
-            isSubscribed = false;
-            document.querySelector('#opcao-compra-unica').classList.add('active');
-            document.querySelector('#opcao-assinatura').classList.remove('active');
-            updateDetails(currentQuantity);
-        });
-    
-        document.getElementById('buyButton').addEventListener('click', function (event) {
-            const flavorSelect = document.getElementById('flavorSelect');
-            const selectedOption = flavorSelect.options[flavorSelect.selectedIndex];
-    
-            if (!selectedOption || selectedOption.value === "" || selectedOption.value === "Selecione um sabor") {
-                event.preventDefault();
-                const errorMessage = document.getElementById('error-message');
-                errorMessage.style.display = 'block';
-                return;
+
+            if (image) {
+                option.setAttribute('data-image', image);
             }
+
+            flavorSelect.add(option);
         });
-    
-        function updateDetails(quantity) {
-            currentQuantity = quantity;
-    
-            const priceType = isSubscribed ? "assinatura" : "compraUnica";
-            const priceDetails = priceData[quantity][priceType];
-    
-            document.getElementById('price-parcelado').innerText = `R$ ${priceDetails.parcelado}`;
-            document.getElementById('price-a-vista').innerText = `R$ ${priceDetails.aVista}`;
-            document.getElementById('quantity').innerText = priceDetails.quantity;
-            document.getElementById('price').innerText = `R$ ${priceDetails.priceEach}`;
-            document.getElementById('saving').innerText = `Economize R$ ${priceDetails.saving}!`;
-    
-            const flavorSelect = document.getElementById('flavorSelect');
-            flavorSelect.innerHTML = ''; // Limpar as opções do select
-    
-            const availableFlavors = getFlavorsForQuantity(quantity);
-    
-            // Adicionar a opção "Selecione um sabor"
-            const defaultOption = document.createElement('option');
-            defaultOption.text = "Selecione um sabor";
-            defaultOption.value = "";
-            flavorSelect.add(defaultOption);
-    
-            availableFlavors.forEach(flavor => {
-                const option = document.createElement('option');
-                option.text = flavor.name;
-    
-                const link = flavor[priceType]?.link || null;
-                const image = flavor.image || null;
-    
-                if (link) {
-                    option.setAttribute('data-link', link);
-                    option.setAttribute(`data-link-${quantity}`, link);
-                }
-    
-                if (image) {
-                    option.setAttribute('data-image', image);
-                }
-    
-                flavorSelect.add(option);
-            });
-            
-            const defaultImages = {
-            1: "https://example.com/default-image-1.png",
-            3: "https://example.com/default-image-3.png",
-            6: "https://example.com/default-image-6.png"
-        };
-            document.getElementById('buyButton').href = "#";
-        }
-    
-        function getFlavorsForQuantity(quantity) {
-            const flavors = {
-                1: [
-                    { name: "Frutas Vermelhas", assinatura: { link: "https://biosante.com.br/pages/avane-1.php?prod=KITAV20&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-1.php?prod=KITAV20" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-1-avane-skin-2022.png?fv" },
-                    { name: "Abacaxi com Limão", assinatura: { link: "https://biosante.com.br/pages/avane-1.php?prod=KITAV22&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-1.php?prod=KITAV22" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-1-avane-skin-2022.png?al" },
-                    { name: "Pêssego com Tangerina", assinatura: { link: "https://biosante.com.br/pages/avane-1.php?prod=KITAV24&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-1.php?prod=KITAV24" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-1-avane-skin-2022.png?pt" },
-                    { name: "Neutro", assinatura: { link: "https://biosante.com.br/pages/avane-1.php?prod=KITAV21&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-1.php?prod=KITAV21" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-1-avane-skin-2022.png?n" }
-                ],
-                3: [
-                    { name: "1un Avane Skin frutas vermelhas + 1un abacaxi com limão + 1un pêssego com tangerina", assinatura: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV12&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV12" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-3-avane-skin-2022.png?kitav12" },
-                    { name: "3un Avane Skin frutas vermelhas", assinatura: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV14&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV14" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-3-avane-skin-2022.png?kitav14" },
-                    { name: "3un Avane Skin abacaxi com limão", assinatura: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV15&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV15" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-3-avane-skin-2022.png?kitav15" },
-                    { name: "3un Avane Skin pêssego com tangerina", assinatura: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV16&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV16" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-3-avane-skin-2022.png?kitav16" },
-                    { name: "3un Avane Skin sabor neutro", assinatura: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV18&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV18" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-3-avane-skin-2022.png?kitav18" }
-                ],
-                6: [
-                    { name: "2un Avane Skin frutas vermelhas + 2un abacaxi com limão + 2un pêssego com tangerina", assinatura: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV61&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV61" }, image: "https://media.swipepages.com/2023/7/647e322a3e0a2d00109802bb/6potes-avane-assinatura-04y2u5.webp?kitav61" },
-                    { name: "6un Avane Skin neutro", assinatura: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV611&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV611" }, image: "https://media.swipepages.com/2023/7/647e322a3e0a2d00109802bb/6potes-avane-assinatura-04y2u5.webp?kitav611" },
-                    { name: "3un Avane Skin frutas vermelhas + 3un abacaxi com limão", assinatura: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV63&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV63" }, image: "https://media.swipepages.com/2023/7/647e322a3e0a2d00109802bb/6potes-avane-assinatura-04y2u5.webp?kitav63" },
-                    { name: "3un Avane Skin frutas vermelhas + 3un pêssego com tangerina", assinatura: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV64&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV64" }, image: "https://media.swipepages.com/2023/7/647e322a3e0a2d00109802bb/6potes-avane-assinatura-04y2u5.webp?kitav64" },
-                    { name: "3un Avane Skin abacaxi com limão + 3un pêssego com tangerina", assinatura: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV65&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV65" }, image: "https://media.swipepages.com/2023/7/647e322a3e0a2d00109802bb/6potes-avane-assinatura-04y2u5.webp?kitav65" },
-                    { name: "6un Avane Skin frutas vermelhas", assinatura: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV67&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV67" }, image: "https://media.swipepages.com/2023/7/647e322a3e0a2d00109802bb/6potes-avane-assinatura-04y2u5.webp?kitav67" }
-                ]
-            };
-    
-            return flavors[quantity] || [];
-        }
+    }
+
+    // Restaura a seleção, se existir
+    const isFlavorAvailable = Array.from(flavorSelect.options).some(option => option.value === selectedFlavor);
+
+    if (isFlavorAvailable) {
+        flavorSelect.value = selectedFlavor;
+    } else {
+        flavorSelect.value = ""; // Redefine para "Selecione um sabor"
+    }
+
+    // Atualiza imagem e link com base no sabor selecionado ou padrão
+    const selectedOption = flavorSelect.options[flavorSelect.selectedIndex];
+    const buyUrl = selectedOption?.getAttribute(`data-link-${quantity}`) || "#";
+    const productImage = selectedOption?.getAttribute('data-image') || defaultImages[quantity];
+
+    document.getElementById('buyButton').href = buyUrl;
+    document.getElementById('productImage').src = productImage;
+}
+
+
+
+const priceData = {
+                   1: { 
+                       compraUnica: { 
+                           parcelado: "18.22", 
+                           aVista: "187.00",
+                           priceEach: "6.23",
+                           saving: "10.00",
+                           quantity: "30 doses"
+                       },
+                       assinatura: { 
+                           parcelado: "16.44", 
+                           aVista: "168.30",
+                           priceEach: "5.61",
+                           saving: "26.30",
+                           quantity: "30 doses"
+                       }
+                   },
+                   3: { 
+                       compraUnica: { 
+                           parcelado: "45.89", 
+                           aVista: "471.00",
+                           priceEach: "5.23",
+                           saving: "90.00",
+                           quantity: "90 doses"
+                       },
+                       assinatura: { 
+                           parcelado: "43.22", 
+                           aVista: "423.90",
+                           priceEach: "4.71",
+                           saving: "120.00",
+                           quantity: "90 doses"
+                       }
+                   },
+                   6: { 
+                       compraUnica: { 
+                           parcelado: "74.24", 
+                           aVista: "762.00",
+                           priceEach: "4.23",
+                           saving: "300.00",
+                           quantity: "180 doses"
+                       },
+                       assinatura: { 
+                           parcelado: "65.24", 
+                           aVista: "690.00",
+                           priceEach: "3.90",
+                           saving: "350.00",
+                           quantity: "180 doses"
+                       }
+                   }
+               };
+
+function getFlavorsForQuantity(quantity) {
+    const flavors = {
+           1: [
+               { name: "Frutas Vermelhas", assinatura: { link: "https://biosante.com.br/pages/avane-1.php?prod=KITAV20&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-1.php?prod=KITAV20" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-1-avane-skin-2022.png?fv" },
+               { name: "Abacaxi com Limão", assinatura: { link: "https://biosante.com.br/pages/avane-1.php?prod=KITAV22&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-1.php?prod=KITAV22" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-1-avane-skin-2022.png?al" },
+               { name: "Pêssego com Tangerina", assinatura: { link: "https://biosante.com.br/pages/avane-1.php?prod=KITAV24&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-1.php?prod=KITAV24" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-1-avane-skin-2022.png?pt" },
+               { name: "Neutro", assinatura: { link: "https://biosante.com.br/pages/avane-1.php?prod=KITAV21&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-1.php?prod=KITAV21" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-1-avane-skin-2022.png?n" }
+           ],
+           3: [
+               { name: "1un Avane Skin frutas vermelhas + 1un abacaxi com limão + 1un pêssego com tangerina", assinatura: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV12&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV12" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-3-avane-skin-2022.png?kitav12" },
+               { name: "3un Avane Skin frutas vermelhas", assinatura: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV14&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV14" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-3-avane-skin-2022.png?kitav14" },
+               { name: "3un Avane Skin abacaxi com limão", assinatura: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV15&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV15" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-3-avane-skin-2022.png?kitav15" },
+               { name: "3un Avane Skin pêssego com tangerina", assinatura: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV16&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV16" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-3-avane-skin-2022.png?kitav16" },
+               { name: "3un Avane Skin sabor neutro", assinatura: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV18&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-3.php?prod=KITAV18" }, image: "https://biosante.com.br/wp-content/uploads/2021/08/kit-3-avane-skin-2022.png?kitav18" }
+           ],
+           6: [
+               { name: "2un Avane Skin frutas vermelhas + 2un abacaxi com limão + 2un pêssego com tangerina", assinatura: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV61&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV61" }, image: "https://media.swipepages.com/2023/7/647e322a3e0a2d00109802bb/6potes-avane-assinatura-04y2u5.webp?kitav61" },
+               { name: "6un Avane Skin neutro", assinatura: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV611&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV611" }, image: "https://media.swipepages.com/2023/7/647e322a3e0a2d00109802bb/6potes-avane-assinatura-04y2u5.webp?kitav611" },
+               { name: "3un Avane Skin frutas vermelhas + 3un abacaxi com limão", assinatura: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV63&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV63" }, image: "https://media.swipepages.com/2023/7/647e322a3e0a2d00109802bb/6potes-avane-assinatura-04y2u5.webp?kitav63" },
+               { name: "3un Avane Skin frutas vermelhas + 3un pêssego com tangerina", assinatura: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV64&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV64" }, image: "https://media.swipepages.com/2023/7/647e322a3e0a2d00109802bb/6potes-avane-assinatura-04y2u5.webp?kitav64" },
+               { name: "3un Avane Skin abacaxi com limão + 3un pêssego com tangerina", assinatura: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV65&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV65" }, image: "https://media.swipepages.com/2023/7/647e322a3e0a2d00109802bb/6potes-avane-assinatura-04y2u5.webp?kitav65" },
+               { name: "6un Avane Skin frutas vermelhas", assinatura: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV67&assina" }, compraUnica: { link: "https://biosante.com.br/pages/avane-6.php?prod=KITAV67" }, image: "https://media.swipepages.com/2023/7/647e322a3e0a2d00109802bb/6potes-avane-assinatura-04y2u5.webp?kitav67" }
+           ]
+         };
+
+    return flavors[quantity] || [];
+}
+
     </script>
    </body>
 </html>
